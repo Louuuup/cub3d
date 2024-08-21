@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/21 13:21:34 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/21 15:55:19 by ycyr-roy         ###   ########.fr       */
+/*   Created: 2024/08/21 14:56:05 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2024/08/21 15:47:07 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int argc, char **argv)
+t_data	*get_data(void)
 {
-	t_data *data;
-	
-	data = get_data();	
-	init(argv, argc);
+	static t_data	data;
+
+	return (&data);
 }
+
