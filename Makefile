@@ -18,7 +18,8 @@ CC = gcc
 CFLAGS = 
 SRC = \
     main.c error_handler.c garbage_handler.c garbage_tools.c init.c parsing.c \
-	utils_test.c utils.c
+	utils_test.c utils.c hooks.c minimap.c movements.c textures.c \
+	texture_utils.c 
 #==============================================================================#
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))
@@ -66,7 +67,7 @@ $(BIN_DIR)/%.o: $(SRC_DIR)/%.c
 	@printf	$(UP)$(CUT)
 $(NAME): $(BIN_DIR) $(OBJS)
 	@$(CC) $(CFLAGS) -o $@ $(OBJS) $(LFLAGS)
-	@echo "$(GREEN)$(BOLD)✅ Successfully compiled $(YELLOW)cub3d                         $(RESET)"
+	@echo "$(GREEN)$(BOLD)✅ Successfully compiled $(YELLOW)cub3d                         $ (RESET)"
 $(BIN_DIR):
 	@$(MKDIRP) $(BIN_DIR)
 libft:

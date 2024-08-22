@@ -6,11 +6,20 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:55:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/21 16:10:05 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:10:07 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void init_ptr(t_data *data)
+{
+	data->map->hud = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	data->map->wall = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	data->map->player = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	
+	
+}
 
 void	init(char **argv, int argc)
 {
@@ -27,16 +36,26 @@ void	init(char **argv, int argc)
 	data->map = (t_map *)gc_calloc(1, sizeof(t_map));
 	if (parse_file_name(argv[1]))
 		fatal_error("Invalid file name");
+	data->map->height = MAX_TILES_Y;
+	data->map->width = MAX_TILES_X;
 	mlx = mlx_init(WIDTH, HEIGHT, "Cub3D prototype, V0.01", false);
 	data->mlx = mlx;
-	
+	data->player.co.x = 0;
+	data->player.co.y = 0;
+	data->player.m_co.x = 0;
+	data->player.m_co.y = 0;
+	data->player.dir = 0;	
+	data->map->start.x = WIDTH - (MINI_SCALE * 30);
+	data->map->start.y = HEIGHT - (MINI_SCALE * 30);
+	init_ptr(data);
 }
+
 
 void	map_read(int fd, t_data *data, int x, int y)
 {
 	char	buffer[MAX_TILES_X * MAX_TILES_Y];
+	int		bytes; 
 	int		i;
-	int		bytes;
 
 	if (fd < 0)
 	{

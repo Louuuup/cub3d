@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   texture_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/21 15:18:49 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/22 14:41:09 by ycyr-roy         ###   ########.fr       */
+/*   Created: 2024/08/22 14:05:46 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2024/08/22 14:41:16 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	fatal_error(char *str)
+mlx_texture_t	*texture_inject(mlx_texture_t *texture, void *ptr)
 {
-	printf(ERROR_MSG);
-	printf("%s\n", str);
-	exit(1);
+	texture = mlx_load_png(ptr);
+	//ptr to free?
+	if (!texture)
+		ft_mlx_error();
+	return (texture);
 }
 
-int	soft_error(char *str)
+mlx_image_t	*texture_load(mlx_t *mlx, mlx_texture_t *texture)
 {
-	printf(ERROR_MSG);
-	printf("%s\n", str);
-	return (1);
-}
+	mlx_image_t	*image;
 
-void ft_mlx_error(void)
-{
-	printf(ERROR_MSG);
-	printf("%s\n", mlx_strerror(mlx_errno));
-	exit(ERROR);
+	image = mlx_texture_to_image(mlx, texture);
+	if (!image)
+		ft_mlx_error();
+	return (image);
 }

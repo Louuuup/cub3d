@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/21 15:18:49 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/22 14:41:09 by ycyr-roy         ###   ########.fr       */
+/*   Created: 2024/08/22 11:14:58 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2024/08/22 11:15:38 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	fatal_error(char *str)
+void	mv_right()
 {
-	printf(ERROR_MSG);
-	printf("%s\n", str);
-	exit(1);
+	printf("Moving right\n");
 }
 
-int	soft_error(char *str)
+void	mv_left()
 {
-	printf(ERROR_MSG);
-	printf("%s\n", str);
-	return (1);
+	printf("Moving left\n");
 }
 
-void ft_mlx_error(void)
+void	mv_up()
 {
-	printf(ERROR_MSG);
-	printf("%s\n", mlx_strerror(mlx_errno));
-	exit(ERROR);
+	printf("Moving up\n");
 }
+
+void	mv_down()
+{
+	printf("Moving down\n");
+}
+

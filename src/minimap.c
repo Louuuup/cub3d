@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/21 15:18:49 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/22 14:41:09 by ycyr-roy         ###   ########.fr       */
+/*   Created: 2024/08/22 11:43:57 by ycyr-roy          #+#    #+#             */
+/*   Updated: 2024/08/22 15:12:45 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	fatal_error(char *str)
+void	draw_minimap(t_data *data, mlx_t *mlx, t_map *map)
 {
-	printf(ERROR_MSG);
-	printf("%s\n", str);
-	exit(1);
+	mlx_image_to_window(mlx, map->hud->image, 0, 0);
+	mlx_image_to_window(mlx, map->wall->image, map->start.x, map->start.y);
+	(void)data;
 }
 
-int	soft_error(char *str)
-{
-	printf(ERROR_MSG);
-	printf("%s\n", str);
-	return (1);
-}
 
-void ft_mlx_error(void)
+void	minimap_player(void)
 {
-	printf(ERROR_MSG);
-	printf("%s\n", mlx_strerror(mlx_errno));
-	exit(ERROR);
+	t_data *data;
+
+	data = get_data();
 }

@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:31:07 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/21 16:12:58 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/08/22 14:41:41 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,14 @@ int	is_map_legal(t_map *map)
 	int j;
 
 	i = 0;
-	while (i < map->height)
+	if (debug())
+		printf("Checking if map is valid...\n");
+	while (i < map->height && map->map[i][0] != '\0')
 	{
 		j = 0;
-		while (j < map->width)
+		while (j < map->width && map->map[i][j] != '\0')
 		{
-			if (map->map[i][j] != '1' && map->map[i][j] != '0' && map->map[i][j] != '2')
+			if (map->map[i][j] != '1' && map->map[i][j] != '0' && map->map[i][j] != '2' && map->map[i][j] != ' ')
 				return (1);
 			j++;
 		}
@@ -75,20 +77,23 @@ int	is_map_legal(t_map *map)
 	return (0);
 }
 
-void parsing_main(char *str)
+void parse_main(char *str)
 {
 	int fd;
 	
 	fd = -1;
-	if (parse_file_name(str))
-		fatal_error("Invalid file name");
+	if (debug())
+		printf("Parsing\n");
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
 		fatal_error("Invalid file descriptor");
 	parse_map(fd, get_data(), 0, 0);
+	if (debug())
+		print_map(get_data()->map);
 	close(fd);
 	
 	if (is_map_legal(get_data()->map))
 		fatal_error("Invalid map");
-	
+	if (debug())
+		printf("Map is valid\n");
 }
