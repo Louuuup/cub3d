@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adube <adube@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:45:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/22 14:53:05 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:33:28 by adube            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <MLX42/MLX42.h>
 # include <stdio.h>
 # include "string.h"
+# include <math.h>
 
 
 //================Base Values================//
@@ -63,6 +64,7 @@ typedef struct s_map
 	char *file;
 	int width;
 	int height;
+	double angle;
 	t_co start;
 	t_co end;
 	t_cube *hud;
