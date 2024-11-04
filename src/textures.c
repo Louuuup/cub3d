@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:45:56 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/22 15:13:02 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:37:07 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void texture_handler()
 		printf("Loading textures...\n");
 	printf("here\n");
 	data->map->player->texture = texture_inject(data->map->player->texture, "textures/mini_player.png");
+	printf("here\n");
 	data->map->player->image = texture_load(data->mlx, data->map->player->texture);
 	data->map->wall->texture = texture_inject(data->map->wall->texture, "textures/mini_wall.png");
 	data->map->wall->image = texture_load(data->mlx, data->map->wall->texture);

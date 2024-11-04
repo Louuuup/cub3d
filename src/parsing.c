@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:31:07 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/04 11:03:12 by yakary           ###   ########.fr       */
+/*   Updated: 2024/11/04 15:01:10 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void parse_map(int fd, t_data *data, int x, int y)
 		y++;	
 	}
 }
+
+// Checks if map is legal, and offsets player in middle of its tile  -  Returns 0 if map is legal, 1 if not
 int	is_map_legal(t_map *map)
 {
 	int i;
@@ -85,6 +87,7 @@ int	is_map_legal(t_map *map)
 	return (0);
 }
 
+// Parses the main file
 void parse_main(char *str)
 {
 	int fd;

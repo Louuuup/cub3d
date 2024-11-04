@@ -1,0 +1,19 @@
+LEXIQUE DE MOTS CLÉS
+
+Tile = Taille définie dans .h, representant la hauteur/largeur d'un mur, d'un plancher, d'un char sur map file.cub
+
+
+t_co subnames
+map_co = Coos sur le map array
+px_co = Coos sur la giga map théorique en pixels.
+mini_co = Coo sur minimap
+scr_co = Coo sur l'écran, variable temporaire dans data. 
+
+INFOS UTILES:
+Minimap
+	- Minimap est une image de 100x100 pixels, qui affiche la position du joueur sur la map.
+	- La minimap est affichée en haut à droite de l'écran.
+	- La minimap est mise à jour à chaque mouvement du joueur.
+	- La minimap est mise à jour à chaque rotation de la caméra.
+	- La minimap est mise à jour à chaque changement de résolution de la fenêtre.
+	- La minimap contient 30x30 tuiles(tiles) de la map.

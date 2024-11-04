@@ -103,6 +103,8 @@ ffclean: fclean rclean
 	@echo "$(GREEN)$(BOLD)✅ Fully Fully cleaned $(YELLOW)cub3d$(RESET)"
 norm:
 	@norminette $(SRC_DIR) $(INC_DIR)
+run: all
+	@./$(NAME) maps/big.cub
 
 re: fclean all
 #====================================MAN==========================================#
