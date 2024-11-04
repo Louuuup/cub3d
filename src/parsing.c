@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:31:07 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/22 14:41:41 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:03:12 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,15 @@ int	is_map_legal(t_map *map)
 		j = 0;
 		while (j < map->width && map->map[i][j] != '\0')
 		{
-			if (map->map[i][j] != '1' && map->map[i][j] != '0' && map->map[i][j] != '2' && map->map[i][j] != ' ')
+			if (map->map[i][j] == 'P')
+			{
+				get_data()->player.co.y = i + 0.5;
+				// get_data()->player.co.x = (i * TX_SIZE) - (TX_SIZE / 2);
+				get_data()->player.co.x = j + 0.5;
+				// get_data()->player.co.y = (j * TX_SIZE) - (TX_SIZE / 2);
+				print_co(get_data()->player.co, "Player co", PURPLE);
+			}
+			else if (map->map[i][j] != '1' && map->map[i][j] != '0' && map->map[i][j] != '2' && map->map[i][j] != ' ')
 				return (1);
 			j++;
 		}

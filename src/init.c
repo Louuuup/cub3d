@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:55:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/22 15:10:07 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:02:12 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void init_ptr(t_data *data)
 	data->map->hud = (t_cube *)gc_calloc(1, sizeof(t_cube));
 	data->map->wall = (t_cube *)gc_calloc(1, sizeof(t_cube));
 	data->map->player = (t_cube *)gc_calloc(1, sizeof(t_cube));
-	
 	
 }
 
@@ -42,11 +41,13 @@ void	init(char **argv, int argc)
 	data->mlx = mlx;
 	data->player.co.x = 0;
 	data->player.co.y = 0;
-	data->player.m_co.x = 0;
-	data->player.m_co.y = 0;
-	data->player.dir = 0;	
+	data->player.m_co.x =  WIDTH - (MINI_SCALE * 30 / 2);
+	data->player.m_co.y = (MINI_SCALE * 30 / 2);
+	data->player.dir = 0;
 	data->map->start.x = WIDTH - (MINI_SCALE * 30);
-	data->map->start.y = HEIGHT - (MINI_SCALE * 30);
+	data->map->start.y = 0;
+	data->map->end.x = WIDTH - MINI_SCALE;
+	data->map->end.y = (MINI_SCALE * 30) - MINI_SCALE;
 	init_ptr(data);
 }
 

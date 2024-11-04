@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:05:46 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/22 14:41:16 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:03:26 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,15 @@ mlx_image_t	*texture_load(mlx_t *mlx, mlx_texture_t *texture)
 	if (!image)
 		ft_mlx_error();
 	return (image);
+}
+
+void put_on_screen(mlx_image_t *image, int x, int y, char *name)
+{
+	t_co co;
+
+	co.x = x;
+	co.y = y;
+	print_co(co, name, GREEN);
+	mlx_image_to_window(get_data()->mlx, image, x, y);
+
 }

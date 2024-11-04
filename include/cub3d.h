@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adube <adube@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:45:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/09/09 11:33:28 by adube            ###   ########.fr       */
+/*   Updated: 2024/11/04 11:04:43 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,18 @@
 #define WIDTH 1920
 #define HEIGHT 1080
 #define TX_SIZE 64
+#define TX_MINI 10
 #define MAX_TILES_X 200
 #define MAX_TILES_Y 200
+#define MAX_PX 12800// (MAX_TILES_X(Y) * TX_SIZE)  pt pu utile
 #define DEBUG_ON 1
 #define TRUE 1
 #define FALSE 0
+//Chat colors
+#define CYAN 0
+#define PURPLE 1
+#define GREEN 2
+
 //=================Minimap values=================//
 #define MINI_SCALE 10
 #define MINI_SIZE 100
@@ -37,6 +44,7 @@
 
 #define ERROR_MSG "\033[31mError:\033[0m "
 #define DEBUG_MSG "\033[33mDebug:\033[0m "
+
 //==================Structures=================//
 
 //chainlist for allocated memory blocks (for garbage collector)
@@ -48,8 +56,8 @@ typedef struct s_memblock
 
 typedef struct coords
 {
-	int x;
-	int y;
+	double x;
+	double y;
 }				t_co;
 
 typedef struct s_cube
@@ -75,9 +83,8 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	t_co co;
+	t_co co; //tile * tx_size
 	t_co m_co;
-	t_cube *mini_tx;
 	int dir;
 	
 }				t_player;
@@ -87,7 +94,8 @@ typedef struct data
 	void *mlx;
 	t_map *map;
 	t_memblock *memblock;
-	t_player player;
+	t_player 	player;
+	t_co		scr_co; //for internal use, coos on screen
 }				t_data;
 
 
@@ -108,6 +116,7 @@ void		parse_map(int fd, t_data *data, int x, int y);
 //utils_test.c
 int			debug(void);
 void		print_map(t_map *map);
+void 		print_co(t_co co, char *name, int color);
 //error_handler.c
 void		fatal_error(char *str);
 int			soft_error(char *str);
@@ -135,5 +144,6 @@ void		texture_handler();
 //texture_utils.c
 mlx_texture_t	*texture_inject(mlx_texture_t *texture, void *ptr);
 mlx_image_t		*texture_load(mlx_t *mlx, mlx_texture_t *texture);
+void			put_on_screen(mlx_image_t *image, int x, int y, char *name);
 
 #endif

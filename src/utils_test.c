@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_test.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:13:25 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/22 12:28:12 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:03:43 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,18 @@ int debug(void)
 		return (TRUE);
 	}
 	return (FALSE);
+}
+
+void print_co(t_co co, char *name, int color)
+{
+	if (debug())
+	{
+		if (color == CYAN)
+			printf("Coordinates of \033[33m[%s]\033[0m: \033[36m(%.1f; %.1f)\033[0m\n", name, co.x, co.y);
+		else if (color == PURPLE)
+			printf("Coordinates of \033[33m[%s]\033[0m: \033[35m(%.1f; %.1f)\033[0m\n", name, co.x, co.y);
+		else
+			printf("Coordinates of \033[33m[%s]\033[0m: \033[32m(%.1f; %.1f)\033[0m\n", name, co.x, co.y);
+
+	}
 }
