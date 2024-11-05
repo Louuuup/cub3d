@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:31:07 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/04 15:01:10 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:24:28 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	is_map_legal(t_map *map)
 		{
 			if (map->map[i][j] == 'P')
 			{
+				map->map[i][j] = '0';
 				get_data()->player.co.y = i + 0.5;
 				// get_data()->player.co.x = (i * TX_SIZE) - (TX_SIZE / 2);
 				get_data()->player.co.x = j + 0.5;

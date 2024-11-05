@@ -1,6 +1,10 @@
 LEXIQUE DE MOTS CLÉS
 
 Tile = Taille définie dans .h, representant la hauteur/largeur d'un mur, d'un plancher, d'un char sur map file.cub
+Load = Afficher des textures a l'ecran, incluant le process derriere
+Unload = Desafficher des textures a l'ecran. 
+Reload = Both :3 abaove
+
 
 
 t_co subnames

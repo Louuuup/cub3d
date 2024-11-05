@@ -6,7 +6,7 @@
 /*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:45:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/04 11:04:43 by yakary           ###   ########.fr       */
+/*   Updated: 2024/11/05 12:26:35 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 #define MAX_TILES_X 200
 #define MAX_TILES_Y 200
 #define MAX_PX 12800// (MAX_TILES_X(Y) * TX_SIZE)  pt pu utile
+#define SPEED 0.2
+
 #define DEBUG_ON 1
 #define TRUE 1
 #define FALSE 0
@@ -139,11 +141,16 @@ void		mv_down();
 void		mv_keyhook(mlx_key_data_t keydata, void *param);
 //minimap.c
 void		draw_minimap(t_data *data, mlx_t *mlx, t_map *map);
+void load_minimap(t_data *data, mlx_t *mlx, t_map *map);
 //textures.c
 void		texture_handler();
 //texture_utils.c
 mlx_texture_t	*texture_inject(mlx_texture_t *texture, void *ptr);
 mlx_image_t		*texture_load(mlx_t *mlx, mlx_texture_t *texture);
 void			put_on_screen(mlx_image_t *image, int x, int y, char *name);
+//reload.c
+void		reload(void);
+int			load_assets(t_data *data, mlx_t *mlx);
+int			unload_assets(t_data *data, mlx_t *mlx);
 
 #endif

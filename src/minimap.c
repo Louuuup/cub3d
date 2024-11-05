@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:43:57 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/04 15:40:59 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:22:17 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,34 +74,34 @@ static void mini_draw(char c, t_co co)
 
 // }
 //recoding the function
-static void mini_draw_loop(t_data *data, mlx_t *mlx, t_map *map)
+void load_minimap(t_data *data, mlx_t *mlx, t_map *map)
 {
-	// t_co map_co;
-	(void)mini_draw;
+	t_co map_co;
 	t_co px_co;
-	t_co temp;
-
-	temp.x = 0;
-	temp.y = 0;
-	px_co = map->start;
+	
 	(void)mlx;
 	(void)data;
+	px_co = map->start;
+	map_co.y = data->player.co.y - 15;
 	if (debug())
 		printf("Drawing minimap\n");
-
-	while (temp.y < 30)
+	while (map_co.y < data->player.co.y + 15)
 	{
-		while (temp.x < 30)
-		{
-			if ((int)px_co.x % 20)
-				put_on_screen(map->wall->image, px_co.x, px_co.y, "WALL");
-			px_co.x += 10;
-			temp.x++;
-		}
+		map_co.x = data->player.co.x - 15;
 		px_co.x = map->start.x;
-		px_co.y += 10;
-		temp.y++;
+		while (map_co.x < data->player.co.x + 15)
+		{
+			if (map_co.x >= 0 && map_co.y >= 0)
+			{
+				mini_draw(map->map[(int)map_co.y][(int)map_co.x], px_co);
+			}
+			px_co.x += MINI_SCALE;
+			map_co.x++;
+		}
+		px_co.y += MINI_SCALE;
+		map_co.y++;
 	}
+		
 }
 
 
@@ -112,9 +112,9 @@ void	draw_minimap(t_data *data, mlx_t *mlx, t_map *map)
 	
 	put_on_screen(map->player->image, data->player.m_co.x, data->player.m_co.y, "PLAYER");
 
-	put_on_screen(map->player->image, map->start.x, map->start.y, "MAP CORNER A");
-	put_on_screen(map->wall->image, 1765, 145, "middle");
-	put_on_screen(map->player->image, map->end.x, map->end.y, "MAP CORNER B");
+	// put_on_screen(map->player->image, map->start.x, map->start.y, "MAP CORNER A");
+	// put_on_screen(map->wall->image, 1765, 145, "middle");
+	// put_on_screen(map->player->image, map->end.x, map->end.y, "MAP CORNER B");
 
-	mini_draw_loop(data, mlx, map);
+	load_minimap(data, mlx, map);
 }
