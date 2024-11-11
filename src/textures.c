@@ -6,28 +6,49 @@
 /*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:45:56 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/05 11:55:42 by yakary           ###   ########.fr       */
+/*   Updated: 2024/11/07 19:58:40 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void texture_handler()
+//Only called on launch, creates textures with inject function
+static void texture_create(t_data *data)
+{
+	if (debug())
+		printf("Creating textures...\n");
+	data->a2d.player->texture = texture_inject(data->a2d.player->texture, "textures//mini/mini_player.png");
+	data->a2d.wall->texture = texture_inject(data->a2d.wall->texture, "textures/mini/mini_wall.png");
+	data->a2d.hud->texture = texture_inject(data->a2d.hud->texture, "textures/hud.png");
+	// data->map->mouse->texture = texture_inject(data->map->mouse->texture, "textures/invisible_cursor.png");
+	// data->map->cursor = mlx_create_cursor(data->map->player->texture);
+	// 
+	if (debug())
+		printf("Textures created\n");
+}
+//Called on each reload and on launch, loads textures
+void texture_load_all(t_data *data)
+{
+	if (debug())
+		printf("Loading textures...\n");
+	if (!data->a2d.player->image)
+		data->a2d.player->image = texture_load(data->mlx, data->a2d.player->texture);
+	if (!data->a2d.wall->image)
+		data->a2d.wall->image = texture_load(data->mlx, data->a2d.wall->texture);	
+	if (!data->a2d.hud->image)
+		data->a2d.hud->image = texture_load(data->mlx, data->a2d.hud->texture);
+	if (debug())
+		printf("Textures loaded\n");
+}
+//Called on first launch, creates and loads all textures
+void texture_handler(void)
 {
 	t_data *data;
 
 	data = get_data();
-	if (debug())
-		printf("Loading textures...\n");
-	data->map->player->texture = texture_inject(data->map->player->texture, "textures/mini_player.png");
-	if (!data->map->player->image)
-		data->map->player->image = texture_load(data->mlx, data->map->player->texture);
-	data->map->wall->texture = texture_inject(data->map->wall->texture, "textures/mini_wall.png");
-	if (!data->map->wall->image)
-		data->map->wall->image = texture_load(data->mlx, data->map->wall->texture);	
-	data->map->hud->texture = texture_inject(data->map->hud->texture, "textures/hud.png");
-	if (!data->map->hud->image)
-		data->map->hud->image = texture_load(data->mlx, data->map->hud->texture);
-	if (debug())
-		printf("Textures loaded\n");
+
+	texture_create(data);
+	texture_load_all(data);
+
+
 }

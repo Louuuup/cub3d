@@ -6,7 +6,7 @@
 /*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:43:57 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/05 12:22:17 by yakary           ###   ########.fr       */
+/*   Updated: 2024/11/07 19:56:10 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void mini_draw(char c, t_co co)
 	{
 		printf("Wall\n");
 		print_co(co, "Wall", PURPLE);
-		put_on_screen(get_data()->map->wall->image, co.x, co.y, "WALL");
+		put_on_screen(get_data()->a2d.wall->image, co.x, co.y, "WALL");
 	}
 	else
 	{
@@ -108,9 +108,9 @@ void load_minimap(t_data *data, mlx_t *mlx, t_map *map)
 void	draw_minimap(t_data *data, mlx_t *mlx, t_map *map)
 {
 
-	put_on_screen(map->hud->image, 0, 0, "HUD");
+	put_on_screen(data->a2d.hud->image, 0, 0, "HUD");
 	
-	put_on_screen(map->player->image, data->player.m_co.x, data->player.m_co.y, "PLAYER");
+	put_on_screen(data->a2d.player->image, data->player.m_co.x, data->player.m_co.y, "PLAYER");
 
 	// put_on_screen(map->player->image, map->start.x, map->start.y, "MAP CORNER A");
 	// put_on_screen(map->wall->image, 1765, 145, "middle");

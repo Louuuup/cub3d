@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 13:21:34 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/08/22 14:29:50 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:22:43 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int main(int argc, char **argv)
 	if (debug())
 		printf("Launching keyhook\n");
 	mlx_key_hook(data->mlx, mv_keyhook, (void *)data);
+	mlx_cursor_hook(data->mlx, mv_cursorhook, (void *)data);
 	if (debug())
 		printf("Launching loop\n");
 	mlx_loop(data->mlx);

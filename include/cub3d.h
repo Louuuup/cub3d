@@ -6,7 +6,7 @@
 /*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:45:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/05 12:26:35 by yakary           ###   ########.fr       */
+/*   Updated: 2024/11/07 19:53:09 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,19 @@ typedef struct s_cube
 	mlx_texture_t	*texture;
 }				t_cube;
 
+typedef struct s_3d_assets
+{
+	
+}				t_3d_assets;
+
+typedef struct s_2d_assets
+{
+	t_cube *hud;
+	t_cube *wall;
+	t_cube *player;
+	t_cube *mouse;
+}				t_2d_assets;
+
 typedef struct s_map
 {
 	char map[MAX_TILES_Y][MAX_TILES_X];
@@ -77,9 +90,8 @@ typedef struct s_map
 	double angle;
 	t_co start;
 	t_co end;
-	t_cube *hud;
-	t_cube *wall;
-	t_cube *player;
+
+	mlx_win_cursor_t *cursor;
 	
 }				t_map;
 
@@ -97,6 +109,8 @@ typedef struct data
 	t_map *map;
 	t_memblock *memblock;
 	t_player 	player;
+	t_3d_assets	a3d;
+	t_2d_assets	a2d;
 	t_co		scr_co; //for internal use, coos on screen
 }				t_data;
 
@@ -139,11 +153,13 @@ void		mv_up();
 void		mv_down();
 //hooks.c
 void		mv_keyhook(mlx_key_data_t keydata, void *param);
+void		mv_cursorhook(double xpos, double ypos, void* param);
 //minimap.c
 void		draw_minimap(t_data *data, mlx_t *mlx, t_map *map);
 void load_minimap(t_data *data, mlx_t *mlx, t_map *map);
 //textures.c
 void		texture_handler();
+void		texture_load_all(t_data *data);
 //texture_utils.c
 mlx_texture_t	*texture_inject(mlx_texture_t *texture, void *ptr);
 mlx_image_t		*texture_load(mlx_t *mlx, mlx_texture_t *texture);

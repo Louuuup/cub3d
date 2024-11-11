@@ -6,7 +6,7 @@
 /*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:30 by yakary            #+#    #+#             */
-/*   Updated: 2024/11/05 12:12:59 by yakary           ###   ########.fr       */
+/*   Updated: 2024/11/07 19:56:27 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int load_assets(t_data *data, mlx_t *mlx)
 
 int unload_assets(t_data *data, mlx_t *mlx)
 {   
-    mlx_delete_image(mlx, data->map->wall->image);
-    data->map->wall->image = NULL;
+    mlx_delete_image(mlx, data->a2d.wall->image);
+    data->a2d.wall->image = NULL;
 }
 
 void reload(void)
