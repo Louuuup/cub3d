@@ -3,17 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   texture_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:05:46 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/04 11:03:26 by yakary           ###   ########.fr       */
+/*   Updated: 2024/11/12 15:20:15 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-mlx_texture_t	*texture_inject(mlx_texture_t *texture, void *ptr)
+mlx_texture_t	*texture_inject(void *ptr)
 {
+	mlx_texture_t *texture;
+
+	texture = NULL;
+	if (debug())
+		printf("Creating texture from '%s'\n", (char *)ptr);
+	if (access(ptr, F_OK) == -1)
+		fatal_error("Texture file not found");
 	texture = mlx_load_png(ptr);
 	//ptr to free?
 	if (!texture)

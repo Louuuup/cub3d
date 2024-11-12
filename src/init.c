@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:55:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/04 11:02:12 by yakary           ###   ########.fr       */
+/*   Updated: 2024/11/12 15:27:53 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 static void init_ptr(t_data *data)
 {
-	data->map->hud = (t_cube *)gc_calloc(1, sizeof(t_cube));
-	data->map->wall = (t_cube *)gc_calloc(1, sizeof(t_cube));
-	data->map->player = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	data->a2d.wall = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	data->a2d.wall = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	data->a2d.player = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	data->a2d.hud = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	data->a2d.mouse = (t_cube *)gc_calloc(1, sizeof(t_cube));
 	
 }
 

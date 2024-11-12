@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:45:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/07 19:53:09 by yakary           ###   ########.fr       */
+/*   Updated: 2024/11/12 15:27:46 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ void load_minimap(t_data *data, mlx_t *mlx, t_map *map);
 void		texture_handler();
 void		texture_load_all(t_data *data);
 //texture_utils.c
-mlx_texture_t	*texture_inject(mlx_texture_t *texture, void *ptr);
+mlx_texture_t	*texture_inject(void *ptr);
 mlx_image_t		*texture_load(mlx_t *mlx, mlx_texture_t *texture);
 void			put_on_screen(mlx_image_t *image, int x, int y, char *name);
 //reload.c

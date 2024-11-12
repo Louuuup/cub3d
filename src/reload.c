@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reload.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:30 by yakary            #+#    #+#             */
-/*   Updated: 2024/11/07 19:56:27 by yakary           ###   ########.fr       */
+/*   Updated: 2024/11/12 14:46:00 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int load_assets(t_data *data, mlx_t *mlx)
     (void)mlx;
     texture_handler();
     load_minimap(data, mlx, data->map);
+    return NO_ERROR;
     
 }
 
@@ -28,6 +29,7 @@ int unload_assets(t_data *data, mlx_t *mlx)
 {   
     mlx_delete_image(mlx, data->a2d.wall->image);
     data->a2d.wall->image = NULL;
+    return NO_ERROR;
 }
 
 void reload(void)
