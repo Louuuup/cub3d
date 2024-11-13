@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:45:56 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/12 15:26:10 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:35:31 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ static void texture_create(t_data *data)
 	printf("la\n");
 	data->a2d.wall->texture = texture_inject("textures/mini/mini_wall.png");
 	data->a2d.hud->texture = texture_inject("textures/hud.png");
-	// data->map->mouse->texture = texture_inject(data->map->mouse->texture, "textures/invisible_cursor.png");
-	// data->map->cursor = mlx_create_cursor(data->map->player->texture);
+	data->a2d.mouse->texture = texture_inject("textures/invisible_cursor.png");
 	// 
 	if (debug())
 		printf("Textures created\n");
@@ -38,6 +37,10 @@ void texture_load_all(t_data *data)
 		data->a2d.wall->image = texture_load(data->mlx, data->a2d.wall->texture);	
 	if (!data->a2d.hud->image)
 		data->a2d.hud->image = texture_load(data->mlx, data->a2d.hud->texture);
+	if (!data->a2d.mouse->image)
+		data->a2d.mouse->image = texture_load(data->mlx, data->a2d.mouse->texture);
+	data->a2d.cursor = mlx_create_cursor(data->a2d.mouse->texture);
+	mlx_set_cursor(data->mlx, data->a2d.cursor);
 	if (debug())
 		printf("Textures loaded\n");
 }

@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:45:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/12 15:27:46 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:16:15 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ typedef struct s_cube
 
 typedef struct s_3d_assets
 {
-	
+	t_cube *wall_n;
+	t_cube *wall_s;
+	t_cube *wall_e;
+	t_cube *wall_w;
 }				t_3d_assets;
 
 typedef struct s_2d_assets
@@ -79,6 +82,7 @@ typedef struct s_2d_assets
 	t_cube *wall;
 	t_cube *player;
 	t_cube *mouse;
+	mlx_win_cursor_t *cursor;
 }				t_2d_assets;
 
 typedef struct s_map
@@ -91,7 +95,6 @@ typedef struct s_map
 	t_co start;
 	t_co end;
 
-	mlx_win_cursor_t *cursor;
 	
 }				t_map;
 

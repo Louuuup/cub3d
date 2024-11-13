@@ -6,7 +6,7 @@
 /*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:55:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/12 15:27:53 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:13:55 by ycyr-roy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ static void init_ptr(t_data *data)
 	data->a2d.player = (t_cube *)gc_calloc(1, sizeof(t_cube));
 	data->a2d.hud = (t_cube *)gc_calloc(1, sizeof(t_cube));
 	data->a2d.mouse = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	data->a3d.wall_n = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	data->a3d.wall_s = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	data->a3d.wall_e = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	data->a3d.wall_w = (t_cube *)gc_calloc(1, sizeof(t_cube));
+	
 	
 }
 
