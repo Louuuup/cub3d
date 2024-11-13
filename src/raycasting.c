@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:44:17 by adube             #+#    #+#             */
-/*   Updated: 2024/11/04 14:34:46 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:27:12 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,141 +22,157 @@
 //in a bigger distance so you will need the delta (i.e. the angle difference between
 //the most central ray (FOV/2) and the given ray that you're trying to perform correction to).
 
-#include "cub3d.h"
+// #include "cub3d.h"
 
-// int	unit_circle(float angle, char c)	// check the unit circle
-// {
-// 	if (c == 'x')
-// 	{
-// 		if (angle > 0 && angle < M_PI)
-// 			return (1);
-// 	}
-// 	else if (c == 'y')
-// 	{
-// 		if (angle > (M_PI / 2) && angle < (3 * M_PI) / 2)
-// 			return (1);
-// 	}
-// 	return (0);
-// }
 
-// float get_angle_dir(float angle)
-// {
-// 	if (angle < 0)
-// 		angle += (2 * M_PI);
-// 	if (angle > (2 * M_PI))
-// 		angle -= (2 * M_PI);
-// 	return (angle);
-// }
 
-// int wall_hit(float x, float y, t_player *player)
-// {
-// 	int  map_x; //replace by the one in the struct
-// 	int  map_y; //replace by the one in the struct
-// 	float	SIZE = 20; //CHANGE TO ONE IN .H WHERE TILE HAS 64px IN SIZE
+  // //posX et posY doit etre la position de depart du player!
+  // //initial direction vector TO CHANGE FROM n, s , e ,w 
+  // //double dirX;
+  // double dirY;
+  // if (direction = N) dirX = 0 et dirY = 1;
+  // if (direction = S) dirX = 0 et dirY = -1;
+  // if (direction = E) dirX = 1 et dirY = 0;
+  // if (direction = W) dirX = -1 et dirY = 0;
+  // double planeX = 0;
+  // double planeY = 0.66; //the 2d raycaster version of camera plane PLANE_Y is FOV 0.66 = 66 degres
 
-// 	if (x < 0 || y < 0)
-// 		return (0);
-// 	map_x = floor (x / SIZE);
-// 	map_y = floor (y / SIZE);
-// 	if ((map_y >= HEIGHT || map_x >= WIDTH))
-// 		return (0);
-// 	if (map_array[map_y] && map_x <= (int)strlen(map_array[map_y]))
-// 		if (map_array[map_y][map_x] == '1')
-// 			return (0);
-// 	return (1);
-// }
+  // double time = 0; //time of current frame
+  // double oldTime = 0; //time of previous frame
 
-// int get_border(float angle, float *border, float *add, int is_horizon)
-// {
-// 	float	SIZE = 20; //CHANGE TO ONE IN .H WHERE TILE HAS 64px IN SIZE
-	
-// 	if (is_horizon)
-// 	{
-// 		if (angle > 0 && angle < M_PI)
-// 		{
-// 			*border += SIZE;
-// 			return (-1);
-// 		}
-// 		*add *= -1;
-// 	}
-// 	else
-// 	{
-// 		if (!(angle > M_PI / 2 && angle < 3 * M_PI / 2)) 
-// 		{
-// 			*border += SIZE;
-// 			return (-1);
-// 		}
-// 		*add *= -1;
-// 	}
-// 	return (1);
-// }
+  // double cameraX;
+  // double cameraY;
+  // double rayDirX;
+  // double rayDirY;
 
-// float get_y_border(t_player *player, float angle)
-// {
-// 	float	x;
-// 	float	y;
-// 	int		pixel;
-// 	float	x_add;
-// 	float	y_add;
-// 	float	SIZE = 20; //add to .h, to have a fixed size for our tiles
+  // while()//until programs quit//)
+  // {
+  //   for(int x = 0; x < WIDTH; x++)
+  //   {
+  //     //calculate ray position and direction
+  //     cameraX = 2 * x / (double)WIDTH - 1; //x-coordinate in camera space
+  //     rayDirX = dirX + planeX * cameraX;
+  //     rayDirY = dirY + planeY * cameraX;
+  //     //which box of the map we're in
+  //     int mapX = int(playerX);
+  //     int mapY = int(playerY);
 
-// 	y_add = SIZE;
-// 	x_add = SIZE * tan(angle);
-// 	y = floor(player->y / SIZE) * SIZE;
-// 	pixel = get_border(angle, &y, &y_add, 1);
-// 	x = player->x + (y - player->y) / tan(angle);
-// 	if ((unit_circle(angle, 'y') && x_add > 0) || (!unit_circle(angle, 'y') && x_add < 0))
-// 		x_add *= -1;
-// 	while (wall_hit(x, y - pixel, player))
-// 	{
-// 		x += x_add;
-// 		y += y_add;
-// 	}
-// 	return (sqrt(pow(x - player->x, 2) + pow(y - player->y, 2)));
-// }
+  //     double sideDistX;
+  //     double sideDistY;
 
-// float	get_x_border(t_player *player, float angle)
-// {
-// 	float	x;
-// 	float	y;
-// 	int		pixel;
-// 	float	x_add;
-// 	float	y_add;
-// 	float	SIZE = 20; //add to .h, to have a fixed size for our tiles
+  //     double deltaDistX;
+  //     double deltaDistY; 
+      
+  //     if (rayDirX == 0)
+  //       deltaDistX = 1e30;
+  //     else
+  //       deltaDistX = abs(1 / rayDirX);
+  //     if (rayDirY == 0)
+  //       deltaDistY = 1e30;
+  //     else
+  //       deltaDistY = abs(1 / rayDirY);
 
-// 	x_add = SIZE;
-// 	y_add = SIZE * tan(angle);
-// 	x = floor(player->x / SIZE) * SIZE;
-// 	pixel = get_border(angle, &x, &x_add, 0);
-// 	y = player->y + (x - player->x) * tan(angle);
-// 	if ((unit_circle(angle, 'x') && y_add < 0) || (!unit_circle(angle, 'x') && y_add > 0))
-// 		y_add *= -1;
-// 	while (wall_hit(x - pixel, y, player))
-// 	{
-// 		x += x_add;
-// 		y += y_add;
-// 	}
-// 	return (sqrt(pow(x - player->x, 2) + pow(y - player->y, 2)));
-// }
+  //     double perpWallDist;
 
-// void	raycasting()
-// {
-// 	int ray = 0;
-// 	ray_angle = player->angle - (player->fov / 2)
-// 	while (ray < WIDTH)
-// 	{
-// 		//have flag for wall hitting
-// 		double ray_dir_x = get_x_border(playerstruct, get_angle_dir(ray_angle));
-// 		double ray_dir_y = get_y_border(player_struct, get_angle_dir(ray_angle));
-// 		if (ray_dir_x <= ray_dir_y)
-// 			mlx->ray->distance = ray_dir_y;
-// 		else
-// 		{
-// 			mlx->ray->distance = ray_dir_x;
-// 			//flag for hit wall
-// 		}
-// 		draw_wall();
-// 		ray++;
-// 		ray_angle += (player->fov / WIDTH);
-// 	}
-// }
+  //     //what direction to step in x or y-direction (either +1 or -1)
+  //     int stepX;
+  //     int stepY;
+
+  //     int hit = 0; //was there a wall hit?
+  //     int side; //was a NS or a EW wall hit?
+  //     //calculate step and initial sideDist
+  //     if (rayDirX < 0)
+  //     {
+  //       stepX = -1;
+  //       sideDistX = (posX - mapX) * deltaDistX;
+  //     }
+  //     else
+  //     {
+  //       stepX = 1;
+  //       sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+  //     }
+  //     if(rayDirY < 0)
+  //     {
+  //       stepY = -1;
+  //       sideDistY = (posY - mapY) * deltaDistY;
+  //     }
+  //     else
+  //     {
+  //       stepY = 1;
+  //       sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+  //     }
+  //     //DDA
+  //     while(hit == 0)
+  //     {
+  //       //prochain carre de la grille direction x ou y
+  //       if(sideDistX < sideDistY)
+  //       {
+  //         sideDistX += deltaDistX;
+  //         mapX += stepX;
+  //         side = 0;
+  //       }
+  //       else
+  //       {
+  //         sideDistY += deltaDistY;
+  //         mapY += stepY;
+  //         side = 1;
+  //       }
+  //       //Check if ray has hit a wall
+  //       if(data->map->map[mapY][mapX] > 0)
+  //         hit = 1;
+  //     }
+
+  //     double perpWallDist;
+
+  //     if(side == 0) 
+  //       perpWallDist = (sideDistX - deltaDistX);
+  //     else          
+  //       perpWallDist = (sideDistY - deltaDistY);
+
+  //     //Calculate height of line to draw on screen
+  //     int lineHeight;
+      
+  //     lineHeight = (int)(HEIGHT/ perpWallDist);
+
+  //     //calculate lowest and highest pixel to fill in current stripe
+  //     int drawStart = -lineHeight / 2 + h / 2;
+  //     if(drawStart < 0) drawStart = 0;
+  //     int drawEnd = lineHeight / 2 + h / 2;
+  //     if(drawEnd >= h) drawEnd = h - 1;
+
+  //     //draw the pixels of the stripe as a vertical line with pos of drawstart and drawEnd + color chosen
+  //     //add right mlx function here
+  //   }
+  //   //timing for input and FPS counter
+  //   oldTime = time;
+  //   time = getTicks();
+  //   double frameTime = (time - oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
+  //   print(1.0 / frameTime); //FPS counter
+ 
+  //   //speed modifiers
+  //   double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
+  //   double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
+
+  // }
+  //   //rotate to the right
+  //   if //pressing right arrow
+  //   {
+  //     //both camera direction and camera plane must be rotated
+  //     double oldDirX = dirX;
+  //     dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
+  //     dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
+  //     double oldPlaneX = planeX;
+  //     planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
+  //     planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+  //   }
+  //   //rotate to the left
+  //   if //pressing left arrow
+  //   {
+  //     //both camera direction and camera plane must be rotated
+  //     double oldDirX = dirX;
+  //     dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
+  //     dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
+  //     double oldPlaneX = planeX;
+  //     planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
+  //     planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+  //   }
