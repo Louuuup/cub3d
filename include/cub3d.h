@@ -6,7 +6,7 @@
 /*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:45:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/12/13 15:25:24 by yakary           ###   ########.fr       */
+/*   Updated: 2025/01/14 12:20:38 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_2d_assets
 	t_cube *player;
 	t_cube *mouse;
 	mlx_image_t *text_pl_coo;
+	mlx_image_t *text_angle; //tmp
 	mlx_win_cursor_t *cursor;
 }				t_2d_assets;
 

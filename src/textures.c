@@ -6,7 +6,7 @@
 /*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:45:56 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/12/13 15:12:28 by yakary           ###   ########.fr       */
+/*   Updated: 2025/01/14 12:19:53 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void texture_create(t_data *data)
 	if (debug())
 		printf("Creating textures...\n");
 	data->a2d.player->texture = texture_inject("textures//mini/mini_player.png");
-	printf("la\n");
 	data->a2d.wall->texture = texture_inject("textures/mini/mini_wall.png");
 	data->a2d.hud->texture = texture_inject("textures/hud.png");
 	data->a2d.mouse->texture = texture_inject("textures/invisible_cursor.png");

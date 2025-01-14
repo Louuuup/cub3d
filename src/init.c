@@ -6,7 +6,7 @@
 /*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:55:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/12/13 15:24:55 by yakary           ###   ########.fr       */
+/*   Updated: 2025/01/14 12:32:34 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void init_rd_txt(t_data * data, char *str)
 		; //ceiling color
 	else
 		fatal_error("Invalid map file");
+		
 }
 
 //Skips empty lines and handles file prefix. Returns the line where grid starts, or -1 if map is invalid
@@ -63,8 +64,7 @@ int init_map_prefix(char **map)
 		else
 			fatal_error(gc_strjoin("Invalid map file: ", split[i]));
 		i++;
-	}
-	
+	}	
 	return (i);
 }
 void	init(char **argv, int argc)
@@ -80,6 +80,8 @@ void	init(char **argv, int argc)
 	else 
 		printf("File extension is valid\n");
 	data->map = (t_map *)gc_calloc(1, sizeof(t_map));
+
+	//init raycaster (dernier init)
 	if (parse_file_name(argv[1]))
 		fatal_error("Invalid file name");
 	data->map->height = MAX_TILES_Y;

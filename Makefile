@@ -104,7 +104,7 @@ ffclean: fclean rclean
 norm:
 	@norminette $(SRC_DIR) $(INC_DIR)
 run: all
-	@./$(NAME) maps/big.cub
+	@./$(NAME) maps/test.cub
 
 re: fclean all
 #====================================MAN==========================================#

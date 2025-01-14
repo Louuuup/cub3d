@@ -6,7 +6,7 @@
 /*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:31:07 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/12/03 13:55:34 by yakary           ###   ########.fr       */
+/*   Updated: 2025/01/14 12:26:24 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void parse_map(int fd, t_data *data, int x, int y)
 	{
 		if (map[i][0] == '\0')
 			break;
+		printf("la\n");
 		ft_strlcpy(data->map->map[i], map[i], MAX_TILES_X);
 		i++;
 		
@@ -70,7 +71,7 @@ int	is_map_legal(t_map *map)
 		j = 0;
 		while (j < map->width && map->map[i][j] != '\0')
 		{
-			if (map->map[i][j] == 'P')
+			if (map->map[i][j] == 'P') // will be N/E/W/S later 
 			{
 				get_data()->player.co.y = i + 0.5;
 				get_data()->player.co.x = j + 0.5;
@@ -101,7 +102,7 @@ void parse_main(char *str)
 	if (debug())
 		print_map(get_data()->map);
 	close(fd);
-	
+	printf("Map is legal: %d\n", is_map_legal(get_data()->map));
 	if (is_map_legal(get_data()->map))
 		fatal_error("Invalid map");
 	if (debug())
