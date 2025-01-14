@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 11:45:56 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/13 13:35:31 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:12:28 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 //Only called on launch, creates textures with inject function
 static void texture_create(t_data *data)
 {
+	if (data->texture_created == TRUE)
+		return;
 	if (debug())
 		printf("Creating textures...\n");
 	data->a2d.player->texture = texture_inject("textures//mini/mini_player.png");
@@ -25,6 +27,7 @@ static void texture_create(t_data *data)
 	// 
 	if (debug())
 		printf("Textures created\n");
+	data->texture_created = TRUE;
 }
 //Called on each reload and on launch, loads textures
 void texture_load_all(t_data *data)

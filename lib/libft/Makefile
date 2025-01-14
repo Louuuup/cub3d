@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+         #
+#    By: yakary <yakary@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/14 15:09:39 by yakary            #+#    #+#              #
-#    Updated: 2023/06/14 11:24:39 by ycyr-roy         ###   ########.fr        #
+#    Updated: 2024/12/13 15:35:19 by yakary           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,8 @@ SRC = ft_bzero.c \
 	ft_lstclear.c \
 	ft_lstiter.c \
 	ft_lstmap.c \
-	get_next_line.c
+	get_next_line.c \
+	ft_dtoa.c
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))
 BOBJS = $(addprefix $(BIN_DIR)/, $(BSRC:.c=.o))
 NAME = libft.a

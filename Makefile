@@ -19,7 +19,7 @@ CFLAGS =
 SRC = \
     main.c error_handler.c garbage_handler.c garbage_tools.c init.c parsing.c \
 	utils_test.c utils.c hooks.c minimap.c movements.c textures.c \
-	texture_utils.c raycasting.c reload.c print3d.c
+	texture_utils.c raycasting.c reload.c print3d.c collision.c
 #==============================================================================#
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(addprefix $(BIN_DIR)/, $(SRC:.c=.o))

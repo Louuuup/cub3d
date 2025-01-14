@@ -3,16 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   reload.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:59:30 by yakary            #+#    #+#             */
-/*   Updated: 2024/11/12 14:46:00 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:34:48 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 //Bin attends, ca arrive bientot. Ici on va mettre tout le loading de textures (et 3d et minimap), inlcuant l'unload.
 //La main function ici sera call a chaque input (bouger, tourner, etc) pour recharger les textures en fonction de la direction du joueur.
+
+
+static void load_texts(t_data *data, mlx_t *mlx)
+{
+    char *tmp;
+    char *tmp2;
+    if (data->a2d.text_pl_coo)
+        mlx_delete_image(mlx, data->a2d.text_pl_coo);
+    tmp = ft_dtoa(data->player.co.x);
+    tmp2 = ft_strjoin("PLAYER: (", tmp);
+    free(tmp);
+    tmp = ft_strjoin(tmp2, ";");
+    free(tmp2);
+    tmp2 = ft_itoa(data->player.co.y);
+    tmp = ft_strjoin(tmp, tmp2);
+    free(tmp2);
+    tmp2 = ft_strjoin(tmp, ")");
+    free(tmp);
+    data->a2d.text_pl_coo = mlx_put_string(mlx, tmp2, 1640, 10);
+    
+}
 
 //puts visuals (images) on screen. Called by reload each time the player moves
 int load_assets(t_data *data, mlx_t *mlx)
@@ -21,6 +42,7 @@ int load_assets(t_data *data, mlx_t *mlx)
     (void)mlx;
     texture_handler();
     load_minimap(data, mlx, data->map);
+    load_texts(data, mlx);
     return NO_ERROR;
     
 }
@@ -28,6 +50,7 @@ int load_assets(t_data *data, mlx_t *mlx)
 int unload_assets(t_data *data, mlx_t *mlx)
 {   
     mlx_delete_image(mlx, data->a2d.wall->image);
+    mlx_delete_image(mlx, data->a2d.text_pl_coo);
     data->a2d.wall->image = NULL;
     return NO_ERROR;
 }

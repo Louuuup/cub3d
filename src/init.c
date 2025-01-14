@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:55:21 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/13 13:13:55 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:24:55 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,46 @@ static void init_ptr(t_data *data)
 	
 }
 
+static void init_rd_txt(t_data * data, char *str)
+{
+	if (strncmp(str, "NO ", 3) == 0)
+		data->a3d.wall_n->texture = texture_inject(str + 3);
+	else if (strncmp(str, "SO ", 3) == 0)
+		data->a3d.wall_s->texture = texture_inject(str + 3);
+	else if (strncmp(str, "WE ", 3) == 0)
+		data->a3d.wall_w->texture = texture_inject(str + 3);
+	else if (strncmp(str, "EA ", 3) == 0)
+		data->a3d.wall_e->texture = texture_inject(str + 3);
+	else if (strncmp(str, "F ", 2) == 0)
+		; //floor color
+	else if (strncmp(str, "C ", 2) == 0)
+		; //ceiling color
+	else
+		fatal_error("Invalid map file");
+}
+
+//Skips empty lines and handles file prefix. Returns the line where grid starts, or -1 if map is invalid
+int init_map_prefix(char **map)
+{
+	int i;
+	char **split;
+
+	i = 0;
+	while (split[i][0] != '1' || split[i][0] != '0')
+	{
+		while (is_empty_line(split[i]))
+			i++;
+		if (split[i][0] == 'F' || split[i][0] == 'C' || split[i][0] == 'N' || split[i][0] == 'S' || split[i][0] == 'W' || split[i][0] == 'E')
+			init_rd_txt(get_data(), split[i]);
+		else if (split[i][0] == '1' || split[i][0] == '0')
+			break;
+		else
+			fatal_error(gc_strjoin("Invalid map file: ", split[i]));
+		i++;
+	}
+	
+	return (i);
+}
 void	init(char **argv, int argc)
 {
 	mlx_t *mlx;
@@ -48,6 +88,7 @@ void	init(char **argv, int argc)
 	data->mlx = mlx;
 	data->player.co.x = 0;
 	data->player.co.y = 0;
+	data->a2d.text_pl_coo = NULL;
 	data->player.m_co.x =  WIDTH - (MINI_SCALE * 30 / 2);
 	data->player.m_co.y = (MINI_SCALE * 30 / 2);
 	data->player.dir = 0;
@@ -55,34 +96,6 @@ void	init(char **argv, int argc)
 	data->map->start.y = 0;
 	data->map->end.x = WIDTH - MINI_SCALE;
 	data->map->end.y = (MINI_SCALE * 30) - MINI_SCALE;
+	data->texture_created = FALSE;
 	init_ptr(data);
-}
-
-
-void	map_read(int fd, t_data *data, int x, int y)
-{
-	char	buffer[MAX_TILES_X * MAX_TILES_Y];
-	int		bytes; 
-	int		i;
-
-	if (fd < 0)
-	{
-		printf("Error\n");
-		exit(1);
-	}
-	ft_bzero(buffer, MAX_TILES_X * MAX_TILES_Y);
-	i = 0;
-	bytes = read(fd, buffer, MAX_TILES_X * MAX_TILES_Y);
-	while (y < MAX_TILES_Y)
-	{
-		x = 0;
-		while ((buffer[i] != '\n' && buffer[i] != '\0'))
-		{
-			data->map->map[y][x] = buffer[i];
-			i++;
-			x++;
-		}
-		i++;
-		y++;
-	}
 }

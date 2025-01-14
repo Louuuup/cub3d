@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:31:07 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/19 14:57:28 by alex             ###   ########.fr       */
+/*   Updated: 2024/12/03 13:55:34 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,27 @@ void parse_map(int fd, t_data *data, int x, int y)
 	
 	char	buffer[MAX_TILES_X * MAX_TILES_Y];
 	int		i;
-	int		bytes;
+	char	**map;
 
+	if (debug())
+		printf("Parsing map\n");
 	if (fd < 0)
 	{
 		printf("Error\n");
 		exit(1);
 	}
 	ft_bzero(buffer, MAX_TILES_X * MAX_TILES_Y);
-	i = 0;
-	bytes = read(fd, buffer, MAX_TILES_X * MAX_TILES_Y);
-	while (y < MAX_TILES_Y)
+	if (read(fd, buffer, MAX_TILES_X * MAX_TILES_Y) < 0)
+		fatal_error("Error reading file");
+	map = gc_split(buffer, '\n');
+	i = init_map_prefix(map);
+	while (i < MAX_TILES_Y)
 	{
-		x = 0;
-		while ((buffer[i] != '\n' && buffer[i] != '\0'))
-		{
-			data->map->map[y][x] = buffer[i];
-			i++;
-			x++;
-		}
+		if (map[i][0] == '\0')
+			break;
+		ft_strlcpy(data->map->map[i], map[i], MAX_TILES_X);
 		i++;
-		y++;	
+		
 	}
 }
 
@@ -72,14 +72,12 @@ int	is_map_legal(t_map *map)
 		{
 			if (map->map[i][j] == 'P')
 			{
-				map->map[i][j] = '0';
 				get_data()->player.co.y = i + 0.5;
-				// get_data()->player.co.x = (i * TX_SIZE) - (TX_SIZE / 2);
 				get_data()->player.co.x = j + 0.5;
-				// get_data()->player.co.y = (j * TX_SIZE) - (TX_SIZE / 2);
 				print_co(get_data()->player.co, "Player co", PURPLE);
 			}
-			else if (map->map[i][j] != '1' && map->map[i][j] != '0' && map->map[i][j] != '2' && map->map[i][j] != ' ')
+			else if (map->map[i][j] != '1' && map->map[i][j] != '0' && map->map[i][j] != '2' \
+			 && map->map[i][j] != ' ' || char_in_map(map->map, 'P') != 1)
 				return (1);
 			j++;
 		}

@@ -6,7 +6,7 @@
 /*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:13:25 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/04 11:03:43 by yakary           ###   ########.fr       */
+/*   Updated: 2024/11/29 15:33:39 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ void print_map(t_map *map)
 	}
 	if (debug())
 		printf("Map printed\n");
+}
+
+void print_array(char **arr)
+{
+	int i;
+
+	i = 0;
+	while (arr[i])
+	{
+		printf("%s\n", arr[i]);
+		i++;
+	}
 }
 
 int debug(void)

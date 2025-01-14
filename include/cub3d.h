@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycyr-roy <ycyr-roy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yakary <yakary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 14:45:43 by ycyr-roy          #+#    #+#             */
-/*   Updated: 2024/11/13 13:16:15 by ycyr-roy         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:25:24 by yakary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 #define MAX_TILES_Y 200
 #define MAX_PX 12800// (MAX_TILES_X(Y) * TX_SIZE)  pt pu utile
 #define SPEED 0.2
+#define M_PI_2 1.57079632679489661923
+#define M_PI 3.14159265358979323846
 
 #define DEBUG_ON 1
 #define TRUE 1
@@ -38,6 +40,8 @@
 #define CYAN 0
 #define PURPLE 1
 #define GREEN 2
+#define RED "\033[31m"
+#define RESET "\033[0m"
 
 //=================Minimap values=================//
 #define MINI_SCALE 10
@@ -82,6 +86,7 @@ typedef struct s_2d_assets
 	t_cube *wall;
 	t_cube *player;
 	t_cube *mouse;
+	mlx_image_t *text_pl_coo;
 	mlx_win_cursor_t *cursor;
 }				t_2d_assets;
 
@@ -91,7 +96,6 @@ typedef struct s_map
 	char *file;
 	int width;
 	int height;
-	double angle;
 	t_co start;
 	t_co end;
 
@@ -102,6 +106,7 @@ typedef struct s_player
 {
 	t_co co; //tile * tx_size
 	t_co m_co;
+	double angle;
 	int dir;
 	
 }				t_player;
@@ -115,6 +120,7 @@ typedef struct data
 	t_3d_assets	a3d;
 	t_2d_assets	a2d;
 	t_co		scr_co; //for internal use, coos on screen
+	bool 		texture_created;
 }				t_data;
 
 
@@ -124,9 +130,12 @@ typedef struct data
 //==================Prototypes=================//
 //utils.c
 t_data		*get_data(void);
+int 		find_char(char **arr, char c);
+int			is_empty_line(char *line);
+int			char_in_map(char map[MAX_TILES_X][MAX_TILES_Y], char c);
 //init.c
-void		map_read(int fd, t_data *data, int x, int y);
 void		init(char **argv, int argc);
+int 		init_map_prefix(char **map);
 //parsing.c
 void		parse_main(char *str);
 int			is_map_legal(t_map *map);
@@ -134,6 +143,7 @@ int			parse_file_name(char *str);
 void		parse_map(int fd, t_data *data, int x, int y);
 //utils_test.c
 int			debug(void);
+void 		print_array(char **arr);
 void		print_map(t_map *map);
 void 		print_co(t_co co, char *name, int color);
 //error_handler.c
@@ -144,6 +154,8 @@ void		ft_mlx_error(void);
 void		*gc_malloc(size_t size);
 void		*gc_calloc(size_t count, size_t size);
 char		*gc_strjoin(char *s1, char *s2);
+char		**gc_split(char *str, char c);
+
 //garbage_handler.c
 t_memblock	*memblock_create(void *ptr);
 t_memblock	*memblock_add(t_memblock *memblock, void *ptr);
@@ -171,5 +183,7 @@ void			put_on_screen(mlx_image_t *image, int x, int y, char *name);
 void		reload(void);
 int			load_assets(t_data *data, mlx_t *mlx);
 int			unload_assets(t_data *data, mlx_t *mlx);
+//collision.c
+int			can_move(t_data *data, double angle);
 
 #endif
