@@ -6,7 +6,7 @@
 /*   By: alexandrinedube <alexandrinedube@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:44:17 by adube             #+#    #+#             */
-/*   Updated: 2025/01/14 12:33:53 by alexandrine      ###   ########.fr       */
+/*   Updated: 2025/01/14 13:50:22 by alexandrine      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,64 +22,63 @@
 //in a bigger distance so you will need the delta (i.e. the angle difference between
 //the most central ray (FOV/2) and the given ray that you're trying to perform correction to).
 
+// posX et posY doit etre la position de depart du player!
+// initial direction vector TO CHANGE FROM n, s , e ,w 
+
+// if (direction = N) dirX = 0 et dirY = -1;
+// if (direction = S) dirX = 0 et dirY = 1;
+// if (direction = E) dirX = 1 et dirY = 0;
+// if (direction = W) dirX = -1 et dirY = 0;
+
 #include "cub3d.h"
 
+//needs to init to these values
+double planeX = 0;
+double planeY = 0.66; //the 2d raycaster version of camera plane PLANE_Y is FOV 0.66 = 66 degres
 
+// double time = 0; time of current frame
+// double oldTime = 0; time of previous frame
 
-  // //posX et posY doit etre la position de depart du player!
-  // //initial direction vector TO CHANGE FROM n, s , e ,w 
-  // //double dirX;
-  // double dirY;
+void	raycasting()
+{
+	double	deltaDistX;
+    double	deltaDistY;
+	double	cameraX;
+	double	cameraY;
+	double	rayDirX;
+	double	rayDirY;
+    double	dirX;
+	double	dirY;
+	int		playerX;
+	int		playerY;
+	int		mapX;
+	int		mapY;
+	int		x;
 
-  // if (direction = N) dirX = 0 et dirY = -1;
-  // if (direction = S) dirX = 0 et dirY = 1;
-  // if (direction = E) dirX = 1 et dirY = 0;
-  // if (direction = W) dirX = -1 et dirY = 0;
+	x = 0;
+	while (x < WIDTH)
+	{
+		//calculate ray position and direction
+		cameraX = 2 * x / (double)WIDTH - 1; //x-coordinate in camera space
+		rayDirX = dirX + planeX * cameraX;
+		rayDirY = dirY + planeY * cameraX;
+		//which box of the map we're in
+		int mapX = playerX; //change from pixel pos, playerX, to square pos mapX
+		int mapY = playerY; // change from pixel pos, playerY, to square pos mapY
+		//use m_co.x / m_co.y and co.x / co.y /// how to find which box were in??
+		if (rayDirX == 0)
+        	deltaDistX = 1e30;
+      	else
+        	deltaDistX = abs(1 / rayDirX);
+      	if (rayDirY == 0)
+        	deltaDistY = 1e30;
+      	else
+        	deltaDistY = abs(1 / rayDirY);
+		x++;
+	}
+}
 
-  // double planeX = 0;
-  // double planeY = 0.66; //the 2d raycaster version of camera plane PLANE_Y is FOV 0.66 = 66 degres
-
-  // double time = 0; //time of current frame
-  // double oldTime = 0; //time of previous frame
-
-  // double cameraX;
-  // double cameraY;
-
-  // double rayDirX;
-  // double rayDirY;
-
-  // while()//until programs quit//)
-  // {
-  //   for(int x = 0; x < WIDTH; x++)
-  //   {
-  //     //calculate ray position and direction
-  //     cameraX = 2 * x / (double)WIDTH - 1; //x-coordinate in camera space
-  //     rayDirX = dirX + planeX * cameraX;
-  //     rayDirY = dirY + planeY * cameraX;
-  //     //which box of the map we're in
-  //     int mapX = int(playerX);
-  //     int mapY = int(playerY);
-  //      use m_co.x / m_co.y and co.x / co.y
-
-  //     double sideDistX;
-  //     double sideDistY;
-
-  //     double deltaDistX;
-  //     double deltaDistY; 
-      
-  //     if (rayDirX == 0)
-  //       deltaDistX = 1e30;
-  //     else
-  //       deltaDistX = abs(1 / rayDirX);
-  //     if (rayDirY == 0)
-  //       deltaDistY = 1e30;
-  //     else
-  //       deltaDistY = abs(1 / rayDirY);
-
-  //     double perpWallDist;
-  //
-  //
-  //     //calculate step and initial sideDist
+//	calculate step and initial sideDist
   double  get_sideDist(double rayDirX, double rayDirY, double deltaDistX, double deltaDistY, int posX, int posY, int mapX, int mapY)
   {
     //put the step and dist infos in the struct not declared in the function like here
@@ -133,9 +132,10 @@ int	DDA_algo(int stepX, int stepY, int mapX, int mapY, double sideDistX, double 
 			mapY += stepY;
 			side = 1;
         }
-        //Check if ray has hit a wall - double check if checkup is good
-//        if(data->map->map[mapY][mapX] > 0)
-//			hit = 1;
+	//Check if ray has hit a wall - double check if checkup is good (if the square is a 1 = wall = hit)
+	//how gets pixels pos to square to check the hit, aka get accurate mapX and mapY
+	//        if(data->map->map[mapY][mapX] > 0)
+	//			hit = 1;
     }
 	return (side);
 }
@@ -153,27 +153,27 @@ double get_perpWallDist(double sideDistX, double sideDistY, double deltaDistX, d
 
 int get_lineInfo(double perpWallDist)
 {
-  //change so it doesnt return int but the line Info struct
-  int lineHeight;
-  int drawStart;
-  int drawEnd;
+	//change so it doesnt return int but the line Info struct
+	int	lineHeight;
+	int	drawStart;
+	int	drawEnd;
 
-  lineHeight = (int)(HEIGHT/ perpWallDist);
-
-  // calculate lowest and highest pixel to fill in current stripe
-  int drawStart = -lineHeight / 2 + HEIGHT / 2;
-  if(drawStart < 0)
-    drawStart = 0;
-  int drawEnd = lineHeight / 2 + HEIGHT / 2;
-  if(drawEnd >= HEIGHT)
-    drawEnd = HEIGHT - 1;
-
-//  return (drawStart and drawEnd and lineHeight in a small struct);
+	lineHeight = (int)(HEIGHT/ perpWallDist);
+	// calculate lowest and highest pixel to fill in current stripe
+	drawStart = -lineHeight / 2 + HEIGHT / 2;
+	if(drawStart < 0)
+		drawStart = 0;
+	drawEnd = lineHeight / 2 + HEIGHT / 2;
+	if(drawEnd >= HEIGHT)
+		drawEnd = HEIGHT - 1;
+	return (0);
+//  return (drawStart and drawEnd and lineHeight in a small struct), then draw frame from what we got;
 }
 
   //after getting lineInfo draw the pixels of the stripe as a vertical line with pos of drawstart and drawEnd + color chosen
   //add right mlx function here
-  //
+
+  
   //   //timing for input and FPS counter
   //   oldTime = time;
   //   time = getTicks();
@@ -184,11 +184,7 @@ int get_lineInfo(double perpWallDist)
   //   double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
   //   double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
 
-  // }
-
-
-
-  //   //rotate to the right
+  //   rotate to the right
   //   if //pressing right arrow
   //   {
   //     //both camera direction and camera plane must be rotated
@@ -199,10 +195,10 @@ int get_lineInfo(double perpWallDist)
   //     planeX = oldPlaneX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
   //     planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
   //   }
-  //   //rotate to the left
-  //   if //pressing left arrow
+  //   rotate to the left
+  //   if pressing left arrow
   //   {
-  //     //both camera direction and camera plane must be rotated
+  //     both camera direction and camera plane must be rotated
   //     double oldDirX = dirX;
   //     dirX = oldDirX * cos(rotSpeed) - dirY * sin(rotSpeed);
   //     dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
